@@ -1,0 +1,1042 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Тест: какая процедура вам подходит — доктор Савинов</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #faf8f5;
+        --bg-2: #f2efe9;
+        --card: #f7f9fa;
+        --surface: #ffffff;
+        --line: rgba(20, 20, 18, 0.08);
+        --line-2: rgba(20, 20, 18, 0.16);
+        --ink: #1c1b19;
+        --ink-2: #55524c;
+        --muted: #8c887f;
+        --accent: #2b4356;
+        --accent-2: #3f5c73;
+        --accent-soft: #e9eff2;
+        --radius: 24px;
+        --radius-lg: 32px;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background:
+          radial-gradient(
+            circle at 15% 10%,
+            var(--accent-soft) 0%,
+            transparent 45%
+          ),
+          radial-gradient(circle at 85% 90%, var(--bg-2) 0%, transparent 50%),
+          var(--bg);
+        color: var(--ink);
+        font-family: "Inter", sans-serif;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: "Fraunces", serif;
+        font-weight: 500;
+        line-height: 1.05;
+        text-wrap: balance;
+      }
+
+      .eyebrow {
+        font-family: "IBM Plex Mono", monospace;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-size: 12px;
+        color: var(--accent);
+      }
+
+      .promo-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin: 16px 0 0;
+        padding: 10px 18px;
+        border-radius: 100px;
+        background: var(--accent);
+        color: #fff;
+        font-size: 14px;
+        box-shadow: 0 10px 20px -10px rgba(43, 67, 86, 0.5);
+      }
+
+      .promo-badge-price {
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      .promo-badge-note {
+        white-space: nowrap;
+      }
+
+      .promo-badge-divider {
+        width: 1px;
+        height: 14px;
+        background: rgba(255, 255, 255, 0.35);
+      }
+
+      .screen {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 48px 24px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .case-marquee {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+        pointer-events: none;
+      }
+
+      .case-marquee-row {
+        display: flex;
+        gap: 16px;
+        position: absolute;
+        left: 0;
+        width: max-content;
+        opacity: 0.14;
+        filter: grayscale(25%) blur(0.3px);
+        animation: case-marquee-scroll 90s linear infinite;
+      }
+
+      .case-marquee-row:first-child {
+        top: 6%;
+      }
+
+      .case-marquee-row.reverse {
+        bottom: 6%;
+        top: auto;
+        animation-direction: reverse;
+        animation-duration: 110s;
+      }
+
+      .case-marquee-row img {
+        height: 220px;
+        width: auto;
+        border-radius: 16px;
+        object-fit: cover;
+        flex-shrink: 0;
+      }
+
+      @keyframes case-marquee-scroll {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      .container {
+        max-width: 720px;
+        margin: 0 auto;
+        width: 100%;
+        background: var(--card);
+        border-radius: var(--radius-lg);
+        box-shadow:
+          0 40px 80px -30px rgba(43, 67, 86, 0.18),
+          0 2px 6px rgba(43, 67, 86, 0.06);
+        padding: 56px 48px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .btn {
+        font-family: "Inter", sans-serif;
+        font-weight: 600;
+        font-size: 15px;
+        padding: 16px 32px;
+        border-radius: 100px;
+        border: 1px solid var(--accent);
+        cursor: pointer;
+        transition: 0.2s;
+        background: transparent;
+      }
+
+      .btn-primary {
+        background: var(--accent);
+        color: #fff;
+        box-shadow: 0 12px 24px -10px rgba(43, 67, 86, 0.55);
+      }
+
+      .btn-primary:hover {
+        background: var(--accent-2);
+        transform: translateY(-2px);
+        box-shadow: 0 16px 28px -10px rgba(43, 67, 86, 0.6);
+      }
+      .btn-primary:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: var(--accent);
+      }
+
+      .btn-secondary:hover {
+        background: var(--accent-soft);
+      }
+
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        box-shadow: 0 2px 8px rgba(43, 67, 86, 0.05);
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      .quiz-progress {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 40px;
+      }
+
+      .quiz-progress .dot {
+        flex: 1;
+        height: 4px;
+        border-radius: 2px;
+        background: var(--line);
+        transition: 0.2s;
+      }
+
+      .quiz-progress .dot.done,
+      .quiz-progress .dot.active {
+        background: var(--accent);
+      }
+
+      .quiz-nav {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 32px;
+      }
+
+      .question-title {
+        font-size: clamp(24px, 3.5vw, 34px);
+        margin-bottom: 24px;
+      }
+
+      .options-grid {
+        display: grid;
+        gap: 12px;
+      }
+
+      .option-btn {
+        text-align: left;
+        padding: 20px 24px;
+        border-radius: var(--radius);
+        border: 1px solid var(--line);
+        background: var(--surface);
+        box-shadow: 0 2px 8px rgba(43, 67, 86, 0.05);
+        font-family: "Inter", sans-serif;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+
+      .option-btn:hover {
+        border-color: var(--line-2);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 16px -4px rgba(43, 67, 86, 0.1);
+      }
+      .option-btn.selected {
+        border-color: var(--accent);
+        background: var(--accent-soft);
+        font-weight: 600;
+      }
+
+      .procedure-grid {
+        display: grid;
+        gap: 12px;
+      }
+
+      .procedure-card {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 24px;
+        border-radius: var(--radius);
+        border: 1px solid var(--line);
+        background: var(--surface);
+        box-shadow: 0 2px 8px rgba(43, 67, 86, 0.05);
+        cursor: pointer;
+        transition: 0.2s;
+        font-family: "Inter", sans-serif;
+        font-size: 17px;
+        font-weight: 600;
+        text-align: left;
+        width: 100%;
+      }
+
+      .procedure-card:hover {
+        border-color: var(--line-2);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 16px -4px rgba(43, 67, 86, 0.1);
+      }
+      .procedure-card.selected {
+        border-color: var(--accent);
+        background: var(--accent-soft);
+      }
+
+      .procedure-card .icon {
+        width: 44px;
+        height: 44px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--accent-soft);
+        border-radius: 50%;
+        color: var(--accent);
+      }
+
+      .procedure-card .icon svg {
+        display: block;
+      }
+
+      .cover-motif {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0.16;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .checkbox-list {
+        display: grid;
+        gap: 12px;
+      }
+
+      .checkbox-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 18px 24px;
+        border-radius: var(--radius);
+        border: 1px solid var(--line);
+        background: var(--surface);
+        box-shadow: 0 2px 8px rgba(43, 67, 86, 0.05);
+        cursor: pointer;
+        transition: 0.2s;
+      }
+
+      .checkbox-item:hover {
+        border-color: var(--line-2);
+      }
+
+      .checkbox-item input {
+        width: 18px;
+        height: 18px;
+        accent-color: var(--accent);
+      }
+
+      .result-reasons {
+        list-style: none;
+        display: grid;
+        gap: 12px;
+      }
+
+      .result-reasons li {
+        padding-left: 28px;
+        position: relative;
+        color: var(--ink-2);
+      }
+
+      .result-reasons li::before {
+        content: "—";
+        position: absolute;
+        left: 0;
+        color: var(--accent);
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        font-size: 13px;
+        color: var(--ink-2);
+        margin-bottom: 8px;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 16px 20px;
+        border-radius: var(--radius);
+        border: 1px solid var(--line);
+        background: var(--surface);
+        box-shadow: 0 2px 8px rgba(43, 67, 86, 0.05);
+        font-family: "Inter", sans-serif;
+        font-size: 16px;
+        color: var(--ink);
+      }
+
+      .form-group input:focus {
+        outline: none;
+        border-color: var(--accent);
+      }
+
+      .photo-glow {
+        position: relative;
+        width: fit-content;
+        margin: 0 auto 20px;
+      }
+
+      .photo-glow::before {
+        content: "";
+        position: absolute;
+        inset: -24px;
+        background: radial-gradient(
+          circle,
+          var(--accent-soft) 0%,
+          transparent 70%
+        );
+        filter: blur(18px);
+        z-index: -1;
+      }
+
+      .doctor-photo-cover {
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: top center;
+        display: block;
+        margin: 0;
+        border: 2px solid var(--accent);
+        box-shadow: 0 12px 24px -8px rgba(43, 67, 86, 0.35);
+        transition: transform 0.15s ease-out;
+        will-change: transform;
+      }
+
+      .doctor-photo-card {
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: top center;
+        flex-shrink: 0;
+        border: 2px solid var(--accent);
+      }
+
+      @media (max-width: 640px) {
+        .screen {
+          padding: 24px 16px;
+        }
+        .container {
+          padding: 32px 24px;
+          border-radius: var(--radius);
+        }
+        .procedure-card {
+          padding: 20px;
+        }
+        .quiz-nav {
+          flex-direction: column-reverse;
+          gap: 12px;
+        }
+        .quiz-nav .btn {
+          width: 100%;
+        }
+        .case-marquee-row img {
+          height: 130px;
+        }
+        .promo-badge {
+          flex-direction: column;
+          gap: 2px;
+          padding: 10px 20px;
+        }
+        .promo-badge-divider {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="case-marquee" aria-hidden="true">
+      <div class="case-marquee-row">
+        <img src="assets/cases/case-01.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-02.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-03.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-04.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-05.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-06.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-07.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-08.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-09.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-10.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-11.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-12.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-13.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-14.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-01.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-02.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-03.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-04.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-05.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-06.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-07.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-08.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-09.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-10.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-11.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-12.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-13.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-14.jpg" alt="" loading="lazy" />
+      </div>
+      <div class="case-marquee-row reverse">
+        <img src="assets/cases/case-14.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-13.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-12.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-11.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-10.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-09.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-08.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-07.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-06.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-05.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-04.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-03.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-02.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-01.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-14.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-13.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-12.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-11.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-10.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-09.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-08.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-07.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-06.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-05.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-04.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-03.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-02.jpg" alt="" loading="lazy" />
+        <img src="assets/cases/case-01.jpg" alt="" loading="lazy" />
+      </div>
+    </div>
+
+    <section
+      id="cover"
+      class="screen"
+      style="position: relative; overflow: hidden"
+    >
+      <svg
+        class="cover-motif"
+        width="900"
+        height="900"
+        viewBox="0 0 900 900"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <circle
+          cx="450"
+          cy="450"
+          r="420"
+          stroke="var(--accent)"
+          stroke-width="1"
+          stroke-dasharray="4 8"
+        />
+        <circle
+          cx="450"
+          cy="450"
+          r="320"
+          stroke="var(--accent)"
+          stroke-width="1"
+          stroke-dasharray="4 8"
+        />
+        <circle
+          cx="450"
+          cy="450"
+          r="220"
+          stroke="var(--accent)"
+          stroke-width="1"
+          stroke-dasharray="4 8"
+        />
+        <path
+          d="M450 10V70M450 830V890M10 450H70M830 450H890"
+          stroke="var(--accent)"
+          stroke-width="1"
+        />
+      </svg>
+      <div class="container" style="text-align: center">
+        <div class="photo-glow">
+          <img
+            src="assets/savinov-avatar.png"
+            alt="Александр Савинов"
+            class="doctor-photo-cover"
+          />
+        </div>
+        <p class="eyebrow">Клиника «Основа силуэта» · Москва</p>
+        <div class="promo-badge">
+          <span class="promo-badge-price">Консультация — 2 500 ₽</span>
+          <span class="promo-badge-divider"></span>
+          <span class="promo-badge-note">до конца лета</span>
+        </div>
+        <h1 style="font-size: clamp(36px, 6vw, 64px); margin: 20px 0">
+          Пройдите тест — узнайте,
+          <em style="font-style: italic; color: var(--accent)"
+            >какая процедура</em
+          >
+          подходит именно вам
+        </h1>
+        <p
+          style="
+            color: var(--ink-2);
+            font-size: 17px;
+            max-width: 480px;
+            margin: 0 auto 32px;
+          "
+        >
+          Доктор Савинов Александр разберёт ваш запрос за 5 вопросов и 1 минуту
+          — без выезда в клинику.
+        </p>
+        <button class="btn btn-primary" onclick="showScreen('quiz')">
+          Пройти тест →
+        </button>
+      </div>
+    </section>
+
+    <section id="quiz" class="screen" hidden>
+      <div class="container">
+        <div class="quiz-progress" id="quiz-progress"></div>
+        <div id="quiz-step-content"></div>
+        <div class="quiz-nav">
+          <button class="btn btn-secondary" id="quiz-back" onclick="goBack()">
+            Назад
+          </button>
+          <button
+            class="btn btn-primary"
+            id="quiz-next"
+            onclick="goNext()"
+            disabled
+          >
+            Далее
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="result" class="screen" hidden>
+      <div class="container">
+        <p class="eyebrow">Ваш персональный результат</p>
+        <h2
+          id="result-title"
+          style="font-size: clamp(28px, 4vw, 42px); margin: 16px 0 24px"
+        ></h2>
+        <ul id="result-reasons" class="result-reasons"></ul>
+        <div
+          class="card"
+          style="
+            padding: 24px;
+            margin: 32px 0;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+          "
+        >
+          <img
+            src="assets/savinov-avatar.png"
+            alt="Александр Савинов"
+            class="doctor-photo-card"
+          />
+          <p style="color: var(--ink-2)">
+            Александр Савинов — практикующий пластический хирург клиники «Основа
+            силуэта» в Москве. Индивидуальный план операции обсуждается на очной
+            консультации.
+          </p>
+        </div>
+        <button class="btn btn-primary" onclick="showScreen('contact-form')">
+          Записаться на консультацию →
+        </button>
+      </div>
+    </section>
+
+    <section id="contact-form" class="screen" hidden>
+      <div class="container">
+        <div id="form-step">
+          <p class="eyebrow">Последний шаг</p>
+          <h2 style="font-size: clamp(28px, 4vw, 42px); margin: 16px 0 24px">
+            Оставьте контакты — подтвердим удобное время консультации
+          </h2>
+          <form id="lead-form" onsubmit="submitForm(event)">
+            <div class="form-group">
+              <label for="lead-name">Имя</label>
+              <input type="text" id="lead-name" name="name" required />
+            </div>
+            <div class="form-group">
+              <label for="lead-phone">Телефон</label>
+              <input type="tel" id="lead-phone" name="phone" required />
+            </div>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              style="width: 100%; margin-top: 8px"
+            >
+              Записаться на консультацию
+            </button>
+          </form>
+        </div>
+        <div id="form-success" hidden>
+          <h2 style="font-size: clamp(28px, 4vw, 42px); margin-bottom: 16px">
+            Заявка принята
+          </h2>
+          <p style="color: var(--ink-2)">
+            Свяжемся с вами в ближайшее время, чтобы согласовать консультацию с
+            доктором Савиновым.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      const TOTAL_STEPS = 5;
+
+      const state = {
+        step: 1,
+        procedure: null,
+        answers: {},
+        contraindications: [],
+      };
+
+      const ICONS = {
+        blepharoplasty: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 12C2 12 6 6 12 6C18 6 22 12 22 12C22 12 18 18 12 18C6 18 2 12 2 12Z" stroke="currentColor" stroke-width="1.4"/>
+          <circle cx="12" cy="12" r="2.2" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M4 7.5C6.5 5.5 9 4.8 12 4.8C15 4.8 17.5 5.5 20 7.5" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2 2"/>
+        </svg>`,
+        rejuvenation: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 3C8 3 5.5 6 5.5 10.5C5.5 15.5 8.5 20 12 20.5C15.5 20 18.5 15.5 18.5 10.5C18.5 6 16 3 12 3Z" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M6 13C7 15.5 9 17.5 12 18.5" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2 2"/>
+        </svg>`,
+        mammoplasty: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.4"/>
+          <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2 2"/>
+          <path d="M12 3V6M12 18V21M3 12H6M18 12H21" stroke="currentColor" stroke-width="1.2"/>
+        </svg>`,
+      };
+
+      const PROCEDURES = {
+        blepharoplasty: {
+          label: "Блефаропластика",
+          questions: [
+            {
+              key: "zone",
+              question: "Какая зона беспокоит больше всего?",
+              options: ["Верхние веки", "Нижние веки", "Обе зоны"],
+            },
+            {
+              key: "concern",
+              question: "Что беспокоит сильнее всего?",
+              options: ["Нависшее веко", "Мешки под глазами", "Асимметрия"],
+            },
+            {
+              key: "timing",
+              question: "Когда планируете операцию?",
+              options: [
+                "В ближайший месяц",
+                "В течение 3 месяцев",
+                "Пока изучаю варианты",
+              ],
+            },
+          ],
+        },
+        rejuvenation: {
+          label: "Тотальное омоложение",
+          questions: [
+            {
+              key: "zone",
+              question: "Какая зона в приоритете?",
+              options: ["Лицо", "Шея", "Овал лица"],
+            },
+            {
+              key: "effect",
+              question: "Какой эффект хотите получить?",
+              options: [
+                "Убрать морщины",
+                "Подтянуть контур",
+                "Освежить в целом",
+              ],
+            },
+            {
+              key: "timing",
+              question: "Когда планируете операцию?",
+              options: [
+                "В ближайший месяц",
+                "В течение 3 месяцев",
+                "Пока изучаю варианты",
+              ],
+            },
+          ],
+        },
+        mammoplasty: {
+          label: "Маммопластика",
+          questions: [
+            {
+              key: "result",
+              question: "Какой результат хотите получить?",
+              options: ["Увеличение", "Подтяжка", "Уменьшение"],
+            },
+            {
+              key: "size",
+              question: "Какой размер сейчас?",
+              options: ["До 1 размера", "1–2 размер", "3 размер и более"],
+            },
+            {
+              key: "timing",
+              question: "Когда планируете операцию?",
+              options: [
+                "В ближайший месяц",
+                "В течение 3 месяцев",
+                "Пока изучаю варианты",
+              ],
+            },
+          ],
+        },
+      };
+
+      const CONTRAINDICATIONS = [
+        { key: "smoking", label: "Курю" },
+        { key: "chronic", label: "Есть хронические заболевания" },
+        { key: "prior", label: "Ранее уже делала операции" },
+      ];
+
+      function showScreen(id) {
+        document
+          .querySelectorAll(".screen")
+          .forEach((el) => (el.hidden = true));
+        document.getElementById(id).hidden = false;
+        window.scrollTo(0, 0);
+        if (id === "quiz") renderStep();
+      }
+
+      function updateProgress() {
+        const wrap = document.getElementById("quiz-progress");
+        wrap.innerHTML = "";
+        for (let i = 1; i <= TOTAL_STEPS; i++) {
+          const dot = document.createElement("div");
+          dot.className =
+            "dot" +
+            (i < state.step ? " done" : i === state.step ? " active" : "");
+          wrap.appendChild(dot);
+        }
+      }
+
+      function renderStep() {
+        updateProgress();
+        const content = document.getElementById("quiz-step-content");
+        const nextBtn = document.getElementById("quiz-next");
+        const backBtn = document.getElementById("quiz-back");
+        backBtn.style.visibility = state.step === 1 ? "hidden" : "visible";
+        nextBtn.textContent = "Далее";
+
+        if (state.step === 1) {
+          content.innerHTML = `
+      <h2 class="question-title">Какая процедура вас интересует?</h2>
+      <div class="procedure-grid">
+        ${Object.entries(PROCEDURES)
+          .map(
+            ([key, p]) => `
+          <button class="procedure-card${state.procedure === key ? " selected" : ""}" onclick="selectProcedure('${key}')">
+            <span class="icon">${ICONS[key]}</span>
+            <span>${p.label}</span>
+          </button>
+        `,
+          )
+          .join("")}
+      </div>
+    `;
+          nextBtn.disabled = !state.procedure;
+          return;
+        }
+
+        if (state.step >= 2 && state.step <= 4) {
+          const questions = PROCEDURES[state.procedure].questions;
+          const q = questions[state.step - 2];
+          const selected = state.answers[q.key];
+          content.innerHTML = `
+      <h2 class="question-title">${q.question}</h2>
+      <div class="options-grid">
+        ${q.options
+          .map(
+            (opt) => `
+          <button class="option-btn${selected === opt ? " selected" : ""}" onclick="selectAnswer('${q.key}', '${opt}')">${opt}</button>
+        `,
+          )
+          .join("")}
+      </div>
+    `;
+          nextBtn.disabled = !selected;
+          return;
+        }
+
+        if (state.step === 5) {
+          content.innerHTML = `
+      <h2 class="question-title">Есть ли что-то из этого?</h2>
+      <p style="color: var(--ink-2); margin-bottom: 24px;">Это не помешает пройти тест — нужно для точной консультации.</p>
+      <div class="checkbox-list">
+        ${CONTRAINDICATIONS.map(
+          (c) => `
+          <label class="checkbox-item">
+            <input type="checkbox" ${state.contraindications.includes(c.key) ? "checked" : ""} onchange="toggleContraindication('${c.key}')">
+            <span>${c.label}</span>
+          </label>
+        `,
+        ).join("")}
+      </div>
+    `;
+          nextBtn.disabled = false;
+          nextBtn.textContent = "Показать результат";
+          return;
+        }
+      }
+
+      function selectProcedure(key) {
+        state.procedure = key;
+        renderStep();
+      }
+
+      function selectAnswer(key, value) {
+        state.answers[key] = value;
+        renderStep();
+      }
+
+      function toggleContraindication(key) {
+        const i = state.contraindications.indexOf(key);
+        if (i === -1) state.contraindications.push(key);
+        else state.contraindications.splice(i, 1);
+      }
+
+      function goNext() {
+        if (state.step < TOTAL_STEPS) {
+          state.step++;
+          renderStep();
+        } else {
+          showResult();
+        }
+      }
+
+      function goBack() {
+        if (state.step > 1) {
+          state.step--;
+          renderStep();
+        }
+      }
+
+      const RESULT_COPY = {
+        blepharoplasty: (a) => ({
+          title: `Блефаропластика — ${a.zone.toLowerCase()}`,
+          reasons: [
+            `Ваш основной запрос — «${a.concern.toLowerCase()}» — устраняется именно этой операцией`,
+            "Вмешательство точечное, восстановление в среднем занимает 7–10 дней",
+            `Срок «${a.timing.toLowerCase()}» позволяет доктору Савинову спланировать операцию заранее`,
+          ],
+        }),
+        rejuvenation: (a) => ({
+          title: `Тотальное омоложение — ${a.zone.toLowerCase()}`,
+          reasons: [
+            `Цель «${a.effect.toLowerCase()}» достигается комплексным подходом к выбранной зоне`,
+            "План операции строится индивидуально под анатомию лица",
+            `Срок «${a.timing.toLowerCase()}» — доктор Савинов согласует даты на консультации`,
+          ],
+        }),
+        mammoplasty: (a) => ({
+          title: `Маммопластика — ${a.result.toLowerCase()}`,
+          reasons: [
+            `Текущий размер «${a.size.toLowerCase()}» учитывается при подборе импланта и техники`,
+            `Результат «${a.result.toLowerCase()}» — одно из основных направлений практики доктора Савинова`,
+            `Срок «${a.timing.toLowerCase()}» позволяет спланировать операцию и период восстановления`,
+          ],
+        }),
+      };
+
+      function showResult() {
+        const copy = RESULT_COPY[state.procedure](state.answers);
+        document.getElementById("result-title").textContent = copy.title;
+        document.getElementById("result-reasons").innerHTML = copy.reasons
+          .map((r) => `<li>${r}</li>`)
+          .join("");
+        showScreen("result");
+      }
+
+      function submitForm(event) {
+        event.preventDefault();
+        const data = {
+          name: document.getElementById("lead-name").value,
+          phone: document.getElementById("lead-phone").value,
+          procedure: PROCEDURES[state.procedure].label,
+          answers: state.answers,
+          contraindications: state.contraindications,
+        };
+        console.log("Заявка с квиза:", data);
+        document.getElementById("form-step").hidden = true;
+        document.getElementById("form-success").hidden = false;
+      }
+
+      function tiltElement(el, e, maxDeg) {
+        const rect = el.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        el.style.transform = `perspective(600px) rotateX(${(-y * maxDeg).toFixed(2)}deg) rotateY(${(x * maxDeg).toFixed(2)}deg) translateY(-2px)`;
+      }
+
+      const photoWrap = document.querySelector(".photo-glow");
+      if (photoWrap) {
+        const photoEl = photoWrap.querySelector(".doctor-photo-cover");
+        photoWrap.addEventListener("mousemove", (e) =>
+          tiltElement(photoEl, e, 16),
+        );
+        photoWrap.addEventListener("mouseleave", () => {
+          photoEl.style.transform = "";
+        });
+      }
+
+      let tiltActiveEl = null;
+      document
+        .getElementById("quiz-step-content")
+        .addEventListener("mousemove", (e) => {
+          const card = e.target.closest(".procedure-card, .option-btn");
+          if (tiltActiveEl && tiltActiveEl !== card) {
+            tiltActiveEl.style.transform = "";
+          }
+          tiltActiveEl = card;
+          if (card) tiltElement(card, e, 6);
+        });
+      document
+        .getElementById("quiz-step-content")
+        .addEventListener("mouseleave", () => {
+          if (tiltActiveEl) tiltActiveEl.style.transform = "";
+          tiltActiveEl = null;
+        });
+    </script>
+  </body>
+</html>
